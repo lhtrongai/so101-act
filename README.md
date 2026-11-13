@@ -102,3 +102,7 @@ shifts up to 5%, rotation up to 5 degrees, colour jitter), evaluated at two came
 - Measure the training bottleneck before choosing a GPU (`data_s` against `updt_s` in the log).
 - Look at every camera image before a session; indices change when cables are replugged.
 - Tape the tripod position and do not move the table between recording and evaluation.
+
+## License
+
+Apache-2.0, the same license as LeRobot. See `LICENSE`.

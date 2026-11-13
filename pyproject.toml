@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,6 +7,7 @@ name = "so101-act"
 version = "0.1.0"
 description = "Data checks, idle trimming, training scripts and real-arm evaluation for ACT on an SO-101 arm"
 readme = "README.md"
+license = "Apache-2.0"
 requires-python = ">=3.12"
 authors = [{ name = "Trong Hoang Le" }]
 dependencies = ["scipy>=1.14"]
