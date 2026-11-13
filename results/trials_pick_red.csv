@@ -1,0 +1,21 @@
+checkpoint,trial,red_cell,black_cell,red_pose,success,notes
+100000_camera_shifted,1,1,5,stand,0,"Failed to grab the red piece and pushed it closer to the black one. On the next grab, it caught both the red and black pieces, and both fell outside the white border."
+100000_camera_shifted,2,2,6,lying,1,
+100000_camera_shifted,3,3,7,tilted,1,
+100000_camera_shifted,4,4,8,stand,1,regrasped successfully
+100000_camera_shifted,5,5,9,lying,1,
+100000_camera_shifted,6,6,1,tilted,1,
+100000_camera_shifted,7,7,2,stand,1,
+100000_camera_shifted,8,8,3,lying,1,
+100000_camera_shifted,9,9,4,tilted,1,regrasped successfully
+100000_camera_shifted,10,1,8,stand,1,regrasped successfully
+100000_camera_shifted,11,2,9,lying,1,regrasped successfully after 2 attempts
+100000_camera_shifted,12,3,1,tilted,1,
+100000_camera_shifted,13,4,2,stand,1,
+100000_camera_shifted,14,5,3,lying,1,"The gripper tends to fail when grasping at this position (the grasp point usually shifts slightly to the right, and this persists across rollouts). The previous grasp moved the red object out of that problematic area, so the regrasp succeeded."
+100000_camera_shifted,15,6,4,tilted,0,"Complete failure at this position. The gripper barely touches the red object, consistently grasping with a rightward offset, even outside the white border. It misses at the same spot after 5-6 attempts."
+100000_camera_shifted,16,7,5,stand,1,
+100000_camera_shifted,17,8,6,lying,1,"Slight rightward offset, but a gripper finger went through the red object's center hole and secured the grasp by accident. It released cleanly into the box."
+100000_camera_shifted,18,9,7,tilted,1,
+100000_camera_shifted,19,4,1,stand,0,The red object was pushed outside the white border after the first grasp
+100000_camera_shifted,20,6,9,lying,1,

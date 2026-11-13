@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "so101-act"
+version = "0.1.0"
+description = "Data checks, idle trimming, training scripts and real-arm evaluation for ACT on an SO-101 arm"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "Trong Hoang Le" }]
+dependencies = ["scipy>=1.14"]
+
+[project.optional-dependencies]
+# For a fresh machine (for example a rented GPU pod). On a machine that already has LeRobot
+# installed in editable mode, install this package without the extra so LeRobot is left untouched.
+lerobot = ["lerobot[training] @ git+https://github.com/huggingface/lerobot.git@38b975c5bca0db0ce11a65705419cca001c6dafa"]
+
+[project.scripts]
+so101-check-dataset = "so101_act.check_dataset:main"
+so101-trim = "so101_act.trim_idle:main"
+so101-success-rate = "so101_act.success_rate:main"
+so101-camera = "so101_act.camera_check:main"
+so101-offline-eval = "so101_act.offline_eval:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

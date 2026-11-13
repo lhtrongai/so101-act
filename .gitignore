@@ -1,0 +1,7 @@
+__pycache__/
+*.egg-info/
+.venv/
+outputs/
+camera_check/
+*.png
+!docs/*.png
