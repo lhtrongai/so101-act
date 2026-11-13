@@ -14,6 +14,7 @@ well above about 0.3; different lighting or a different arm pose lowers it.
 
 Examples:
   so101-camera align --repo-id tronghle/so101_pick_red_20261110_013629 --episode 2 --index 0
+  so101-camera align --ref-image camera_check/front_color.png --ref-panel 1 --index 0
   so101-camera compare --repo-id tronghle/so101_pick_red_20261110_013629 --episode 2 --front 0 --wrist 2
   so101-camera sessions --repo-id tronghle/so101_pick_red_20261110_013629
 """
@@ -71,10 +72,22 @@ def first_frame(ds, episode: int, key: str) -> np.ndarray:
     return to_uint8_hwc(ds[idx][key])
 
 
+def load_reference(args) -> np.ndarray:
+    """Reference frame: a saved image (optionally one 640 px panel of a side-by-side image) or a recorded frame."""
+    if args.ref_image:
+        img = cv2.imread(str(args.ref_image))
+        if img is None:
+            raise SystemExit(f"Could not read {args.ref_image}")
+        if args.ref_panel is not None:
+            img = img[:, 640 * args.ref_panel : 640 * (args.ref_panel + 1)]
+        return cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    return first_frame(load_dataset(args), args.episode, args.key)
+
+
 def cmd_align(args) -> None:
     import rerun as rr
 
-    ref = first_frame(load_dataset(args), args.episode, args.key)
+    ref = load_reference(args)
     cap = open_camera(args.index)
     rr.init("camera_alignment", spawn=True)
     print("Align until nothing looks doubled in Rerun. Ctrl+C to stop.")
@@ -119,12 +132,14 @@ def main() -> None:
     sub = p.add_subparsers(dest="cmd", required=True)
     for name in ["align", "compare", "sessions"]:
         s = sub.add_parser(name)
-        s.add_argument("--repo-id", required=True)
+        s.add_argument("--repo-id", required=(name != "align"))
         s.add_argument("--root", type=Path)
         if name in ("align", "compare"):
             s.add_argument("--episode", type=int, default=0, help="episode whose first frame is the reference")
     sub.choices["align"].add_argument("--index", type=int, required=True, help="live camera index")
     sub.choices["align"].add_argument("--key", default=FRONT, help="dataset image key to align against")
+    sub.choices["align"].add_argument("--ref-image", type=Path, help="align to a saved image instead of a recorded frame")
+    sub.choices["align"].add_argument("--ref-panel", type=int, help="panel index (0, 1, 2) when the image is side by side")
     sub.choices["compare"].add_argument("--front", type=int, required=True, help="live index of the front camera")
     sub.choices["compare"].add_argument("--wrist", type=int, required=True, help="live index of the wrist camera")
     sub.choices["compare"].add_argument("--out", default="camera_check")
