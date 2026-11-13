@@ -58,9 +58,11 @@ On a fresh GPU pod: `bash scripts/setup_pod.sh` (installs LeRobot at the pinned 
 4. **Evaluate on the real arm** with a fixed list of 20 start configurations, one fresh run
    per trial, scored by hand in a CSV (`results/trials_pick_red.csv`):
    ```
-   .\scripts\rollout.ps1 -Policy <user>/act_<name> -Front 0 -Wrist 2
+   so101-eval-session results/trials_pick_red.csv --label <label> --policy <user>/act_<name> --front 0 --wrist 2
    so101-success-rate results/trials_pick_red.csv --by red_pose
    ```
+   The session tool shows each start configuration, runs the rollout, asks for the score and
+   saves after every trial. `scripts/rollout.ps1` runs a single rollout by hand.
 
 5. **Diagnose** without the robot:
    - `so101-offline-eval`: run the policy on recorded frames and compare with the demonstrations,

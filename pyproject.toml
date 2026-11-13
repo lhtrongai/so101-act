@@ -23,6 +23,7 @@ so101-trim = "so101_act.trim_idle:main"
 so101-success-rate = "so101_act.success_rate:main"
 so101-camera = "so101_act.camera_check:main"
 so101-offline-eval = "so101_act.offline_eval:main"
+so101-eval-session = "so101_act.eval_session:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
