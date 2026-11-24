@@ -5,3 +5,4 @@ outputs/
 camera_check/
 *.png
 !docs/*.png
+*.zip
